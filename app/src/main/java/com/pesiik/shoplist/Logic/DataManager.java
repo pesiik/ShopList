@@ -7,11 +7,10 @@ import com.pesiik.shoplist.Model.Product;
 import com.pesiik.shoplist.R;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class DataManager {
 
-    private HashMap<String, Product> integerProductMap;
+    private HashMap<String, Product> stringProductHashMap;
     private Activity activity;
     private static final String PATH = "products.json";
 
@@ -22,12 +21,12 @@ public class DataManager {
 
 
     public void loadFromFile(JsonManager jsonManager){
-        integerProductMap = jsonManager.readJsonFromPath(PATH);
+        stringProductHashMap = jsonManager.readJsonFromPath(PATH);
     }
 
     public void addProduct(Product product){
-        if(!integerProductMap.containsKey(product.getName())){
-            integerProductMap.put(product.getName(), product);
+        if(!stringProductHashMap.containsKey(product.getName())){
+            stringProductHashMap.put(product.getName(), product);
         }
         else {
             Toast.makeText(activity, R.string.add_error, Toast.LENGTH_SHORT).show();
@@ -36,16 +35,16 @@ public class DataManager {
     }
 
     public void updateProductInfo(Product product){
-        if(integerProductMap.containsKey(product.getName())){
-            integerProductMap.put(product.getName(), product);
+        if(stringProductHashMap.containsKey(product.getName())){
+            stringProductHashMap.put(product.getName(), product);
         }
     }
 
     public void updateToFile(JsonManager jsonManager){
-        jsonManager.writeFromObjectToFile(integerProductMap, PATH);
+        jsonManager.writeFromObjectToFile(stringProductHashMap, PATH);
     }
 
-    public Map<String, Product> getIntegerProductMap() {
-        return integerProductMap;
+    public HashMap<String, Product> getStringProductMap() {
+        return stringProductHashMap;
     }
 }

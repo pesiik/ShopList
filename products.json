@@ -1,0 +1,18 @@
+{
+"count":5,
+"description":"Крутой, хоть и Китайский!",
+"id":0,"name":"Xiaomi Note 3 Pro",
+"price":10000.5
+}
+
+{"count":2,
+"description":"Если важно яблочко в соц сетях. Включил и пользуешь (почти)",
+"id":1,"name":"IPhone SE",
+"price":20000.0
+}
+
+{"count":15,
+"description":"А помните? Был такой.",
+"id":2,"name":"Nokia Lumia 520",
+"price":6000.0
+}

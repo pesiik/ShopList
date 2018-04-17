@@ -1,7 +1,6 @@
 package com.pesiik.shoplist;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.ListView;
 
+import com.pesiik.shoplist.Logic.DataManager;
 import com.pesiik.shoplist.Logic.JsonManager;
+import com.pesiik.shoplist.Logic.TestDataCreator;
+import com.pesiik.shoplist.Model.Product;
+import com.pesiik.shoplist.Model.ProductArrayAdapter;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ShopActivity extends AppCompatActivity {
+
+    HashMap<String, Product> productHashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,14 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
         JsonManager jsonManager = new JsonManager();
-
+        DataManager dataManager = new DataManager(this);
+        TestDataCreator.createSomeTestData(this, jsonManager);
+        dataManager.loadFromFile(jsonManager);
+        productHashMap = dataManager.getStringProductMap();
+        ArrayList<Product> products = new ArrayList<>(productHashMap.values());
+        ProductArrayAdapter adapter = new ProductArrayAdapter(this, R.layout.product_item, R.id.name, products);
+        ListView listView = findViewById(R.id.list_products);
+        listView.setAdapter(adapter);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Product implements Parcelable, Comparable<Product>{
     private String name;
     private Double price;
     private String description;
-    private int count;
+    private Integer count;
 
 
     public Product(int id, String name, Double price, String description, int count) {
@@ -47,7 +47,7 @@ public class Product implements Parcelable, Comparable<Product>{
         }
     };
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

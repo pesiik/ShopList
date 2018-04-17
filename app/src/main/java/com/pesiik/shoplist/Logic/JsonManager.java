@@ -25,9 +25,12 @@ public class JsonManager {
 
     public HashMap<String, Product> readJsonFromPath(String path){
         List<Product> products = new ArrayList<Product>();
+
+
+
         HashMap<String, Product> integerProductHashMap = new HashMap<>();
         try {
-            products = mapper.readValue(new File(path), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Product.class));
+            products = mapper.readValue(new File(path), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Product.class)); //right here todo
             for (Product p: products) {
                 integerProductHashMap.put(p.getName(), p);
             }
@@ -38,7 +41,7 @@ public class JsonManager {
             Log.d(TAG, e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, e.getMessage()); //no such file in directory todo
             e.printStackTrace();
         }
 
