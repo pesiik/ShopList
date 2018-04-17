@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ShopList</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_error">Ошибка добавления (такой товар уже существует)</string>
+    <string name="name_test">Помидора 3000 X K</string>
+    <string name="price_test">2000</string>
+    <string name="rub_symbol">\u20BD</string>
+    <string name="count_word">Количество на складе: </string>
+    <string name="count_test">5</string>
+    <string name="description_test">Очень вкусный помидор. Как моченное яблочко, только красный.</string>
+</resources>
