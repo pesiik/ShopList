@@ -1,8 +1,10 @@
 package com.pesiik.shoplist.Model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,10 +18,13 @@ import java.util.List;
 public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
     ArrayList<Product> products;
+    Activity activity;
 
-    public ProductArrayAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<Product> objects) {
-        super(context, resource, textViewResourceId, objects);
+    public ProductArrayAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects, Activity activity) {
+        super(context, resource, objects);
         products = new ArrayList<>(objects);
+
+        this.activity = activity;
 
     }
 
@@ -34,6 +39,12 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View productView = convertView;
 
+        if(productView == null)
+        {
+            LayoutInflater inflater = activity.getLayoutInflater();
+            productView = inflater.inflate(R.layout.product_item, parent, false);
+        }
+
         TextView price = (TextView) productView.findViewById(R.id.price);
         String priceString = products.get(position).getPrice().toString();
         price.setText(priceString);
@@ -44,8 +55,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
 
         TextView count = (TextView) productView.findViewById(R.id.count_products);
-        Integer countInt = (Integer) products.get(position).getCount();
-        count.setText(countInt);
+        int countInt = products.get(position).getCount();
+        count.setText(String.valueOf(countInt));
 
 
         TextView description = (TextView) productView.findViewById(R.id.description);

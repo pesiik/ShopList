@@ -71,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/count_word"
         android:layout_toRightOf="@+id/price_word"
+        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@+id/price_word"
         android:text="@string/count_test"
         />

@@ -21,17 +21,17 @@ public class TestDataCreator {
         Product androidPhone = new Product(0, "Xiaomi Note 3 Pro", 10000.50, "Крутой, хоть и Китайский!", 5);
         Product iosPhone = new Product(1, "IPhone SE", 20000d, "Если важно яблочко в соц сетях. Включил и пользуешь (почти)", 2);
         Product windowsPhone = new Product(2, "Nokia Lumia 520", 6000d, "А помните? Был такой.", 15);
+        Product nokia5100 = new Product(2, "Nokia 5100", 600d, "Однажды он спас мне жизнь. Я смог убежать от стаффорда", 1);
 
         HashMap<String, Product> products = new HashMap<>();
         products.put(androidPhone.getName(),androidPhone);
         products.put(iosPhone.getName(),iosPhone);
         products.put(windowsPhone.getName(),windowsPhone);
-
-
+        products.put(nokia5100.getName(), nokia5100);
 
         FileOutputStream outputStream = null;
         try {
-            outputStream = activity.openFileOutput(PATH, Context.MODE_APPEND);
+            outputStream = activity.openFileOutput(PATH, Context.MODE_PRIVATE);
             String jsonString = jsonManager.getStringFromObject(products);
             outputStream.write(jsonString.getBytes());
         } catch (IOException e) {

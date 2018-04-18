@@ -44,8 +44,8 @@ public class ShopActivity extends AppCompatActivity {
         dataManager.loadFromFile(jsonManager);
         productHashMap = dataManager.getStringProductMap();
         ArrayList<Product> products = new ArrayList<>(productHashMap.values());
-        ProductArrayAdapter adapter = new ProductArrayAdapter(this, R.layout.product_item, R.id.name, products);
-        ListView listView = findViewById(R.id.list_products);
+        ProductArrayAdapter adapter = new ProductArrayAdapter(this, R.layout.product_item, products, this);
+        ListView listView = findViewById(R.id.product_list);
         listView.setAdapter(adapter);
     }
 

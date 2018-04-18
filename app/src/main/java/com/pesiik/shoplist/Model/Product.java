@@ -4,18 +4,33 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Comparator;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product implements Parcelable, Comparable<Product>{
 
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("price")
     private Double price;
+    @JsonProperty("description")
     private String description;
-    private Integer count;
+    @JsonProperty("count")
+    private int count;
 
-
-    public Product(int id, String name, Double price, String description, int count) {
+    @JsonCreator
+    public Product(@JsonProperty("id") int id,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("price") Double price,
+                   @JsonProperty("description") String description,
+                   @JsonProperty("count") int count) {
         this.id = id;
         this.name = name;
         this.price = price;

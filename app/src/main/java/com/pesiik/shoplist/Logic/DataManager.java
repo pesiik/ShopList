@@ -21,7 +21,7 @@ public class DataManager {
 
 
     public void loadFromFile(JsonManager jsonManager){
-        stringProductHashMap = jsonManager.readJsonFromPath(PATH);
+        stringProductHashMap = jsonManager.readJsonFromPath(activity, PATH);
     }
 
     public void addProduct(Product product){

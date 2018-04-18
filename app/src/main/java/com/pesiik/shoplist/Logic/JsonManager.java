@@ -1,5 +1,7 @@
 package com.pesiik.shoplist.Logic;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -11,7 +13,10 @@ import com.pesiik.shoplist.Model.Product;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,25 +28,30 @@ public class JsonManager {
     private static final String TAG = "JsonManager";
 
 
-    public HashMap<String, Product> readJsonFromPath(String path){
+    public HashMap<String, Product> readJsonFromPath(Activity activity, String path){
         List<Product> products = new ArrayList<Product>();
-
-
-
         HashMap<String, Product> integerProductHashMap = new HashMap<>();
+
         try {
-            products = mapper.readValue(new File(path), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Product.class)); //right here todo
-            for (Product p: products) {
-                integerProductHashMap.put(p.getName(), p);
+            InputStream inputStream = activity.openFileInput(path);
+
+            try {
+                products = mapper.readValue(inputStream,
+                        mapper.getTypeFactory().constructCollectionType(ArrayList.class, Product.class)); //right here todo
+                for (Product p: products) {
+                    integerProductHashMap.put(p.getName(), p);
+                }
+            } catch (JsonParseException e) {
+                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
+            } catch (IOException e) {
+                Log.d(TAG, e.getMessage()); //no such file in directory todo
+                e.printStackTrace();
             }
-        } catch (JsonParseException e) {
-            Log.d(TAG, e.getMessage());
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            Log.d(TAG, e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage()); //no such file in directory todo
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -70,17 +80,15 @@ public class JsonManager {
     }
 
     public String getStringFromObject(HashMap<String, Product>  products){
-        StringBuffer stringBuffer = new StringBuffer();
-        for (Product product: products.values()) {
-            try {
-                String value = mapper.writeValueAsString(product);
-                stringBuffer.append(value);
-            } catch (JsonProcessingException e) {
-                Log.d(TAG, e.getMessage());
-                e.printStackTrace();
-            }
+        String value = "";
+        try {
+            value = mapper.writeValueAsString(products.values());
         }
-        return stringBuffer.toString();
+        catch (JsonProcessingException e){
+            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
+        }
+        return value;
     }
 
     public void writeFromObjectToFile(HashMap<String, Product> products, String path){
