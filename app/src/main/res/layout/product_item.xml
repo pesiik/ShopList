@@ -9,7 +9,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/product_image"
-        />
+        android:contentDescription="@string/icon_content_description" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,27 +29,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_toStartOf="@+id/price"
         android:text="@string/price_word"
-        android:layout_toLeftOf="@+id/price" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_toEndOf="@id/icon" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_toStartOf="@+id/rub_symbol"
         android:text="@string/price_test"
-        android:layout_toLeftOf="@+id/rub_symbol" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/price_word"
+        android:layout_toEndOf="@id/price_word"
+        />
 
     <TextView
         android:id="@+id/rub_symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/name"
         android:layout_below="@+id/name"
         android:text="@string/rub_symbol"
-        android:layout_alignRight="@+id/name" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/price"
+        android:layout_toEndOf="@id/price"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,22 +65,22 @@
         android:text="@string/count_word"
         android:layout_below="@id/price_word"
 
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_toEndOf="@id/icon"/>
 
 
     <TextView
         android:id="@+id/count_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/count_word"
-        android:layout_toRightOf="@+id/price_word"
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/price_word"
         android:text="@string/count_test"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/count_word"
+        android:layout_toEndOf="@id/count_word"
+        android:layout_below="@id/price_word"
         />
 
 
