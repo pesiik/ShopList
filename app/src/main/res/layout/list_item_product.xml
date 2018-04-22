@@ -1,93 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/product_image"
-        android:contentDescription="@string/icon_content_description" />
+        android:contentDescription="@string/icon_content_description"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/product_image"/>
 
     <TextView
+        android:id="@+id/product_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/icon"
+        android:layout_toRightOf="@+id/icon"
         android:text="@string/name_test"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@id/icon"
-        android:layout_toEndOf="@id/icon"
-         />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/price_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
         android:text="@string/price_word"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_toRightOf="@id/icon"
-        android:layout_toEndOf="@id/icon" />
+        android:layout_toEndOf="@id/icon"
+        android:layout_below="@id/product_title"/>
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/price_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
         android:text="@string/price_test"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_toRightOf="@id/price_word"
         android:layout_toEndOf="@id/price_word"
+        android:layout_below="@id/product_title"
         />
 
     <TextView
-        android:id="@+id/rub_symbol"
+        android:id="@+id/price_symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
         android:text="@string/rub_symbol"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@id/price"
-        android:layout_toEndOf="@id/price"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@id/price_label"
+        android:layout_toEndOf="@id/price_label"
+        android:layout_below="@id/product_title"
+        />
 
     <TextView
+        android:id="@+id/count_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/count_word"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/count_word"
-        android:layout_below="@id/price_word"
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
         android:layout_toRightOf="@id/icon"
-        android:layout_toEndOf="@id/icon"/>
-
+        android:layout_toEndOf="@id/icon"
+        android:layout_below="@id/price_word"
+        />
 
     <TextView
         android:id="@+id/count_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/count_test"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
         android:layout_toRightOf="@id/count_word"
         android:layout_toEndOf="@id/count_word"
-        android:layout_below="@id/price_word"
-        />
-
+        android:layout_below="@id/price_word"/>
 
     <TextView
+        android:id="@+id/description_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/description"
         android:text="@string/description_test"
         android:layout_below="@id/icon"/>
 </RelativeLayout>
