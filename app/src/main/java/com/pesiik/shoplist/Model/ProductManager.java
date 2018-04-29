@@ -40,6 +40,19 @@ public class ProductManager {
         return null;
     }
 
+    public void AddProduct(Product product){
+        mProducts.add(product);
+    }
+
+    public void removeProduct(UUID uuid){
+        for (Product product : mProducts){
+            if(product.getId() == uuid){
+                mProducts.remove(product);
+                break;
+            }
+        }
+    }
+
     public List<Product> getProducts() {
         return mProducts;
     }

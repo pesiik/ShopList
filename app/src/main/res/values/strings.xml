@@ -22,4 +22,9 @@
     <string name="save_button">Сохранить изменения</string>
     <string name="canсel_button">Отменить изменения</string>
 
+    <string name="item_title">Что сделать с продуктом?</string>
+    <string name="edit_item">Редактировать</string>
+    <string name="remove_item">Удалить</string>
+
+    <string name="empty_fields_hint">У вас есть не заполненные поля</string>
 </resources>

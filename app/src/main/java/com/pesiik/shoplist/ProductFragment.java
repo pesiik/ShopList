@@ -1,5 +1,7 @@
 package com.pesiik.shoplist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.pesiik.shoplist.Model.Product;
 import com.pesiik.shoplist.Model.ProductManager;
@@ -26,6 +30,8 @@ public class ProductFragment extends Fragment {
     private EditText mTitleField;
     private EditText mPriceField;
     private EditText mDescriptionField;
+    private Button mSaveChangesButton;
+    private Button mCanselButton;
 
 
     public static ProductFragment newInstance(UUID productId){
@@ -36,12 +42,22 @@ public class ProductFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProduct = new Product();
-        UUID productId = (UUID) getArguments().getSerializable(ARG_PRODUCT_ID);
-        mProduct = ProductManager.get(getContext()).getProduct(productId);
+
+        Bundle arguments = getArguments();
+
+        if(arguments != null){
+            UUID productId = (UUID) arguments.getSerializable(ARG_PRODUCT_ID);
+            mProduct = ProductManager.get(getContext()).getProduct(productId);
+        }
+        else {
+            mProduct = new Product();
+        }
     }
 
 
@@ -52,65 +68,39 @@ public class ProductFragment extends Fragment {
 
         mTitleField = v.findViewById(R.id.product_edit);
         mTitleField.setText(mProduct.getName());
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mProduct.setName(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         mPriceField = v.findViewById(R.id.price_edit);
-        mPriceField.setText(mProduct.getPrice().toString());
-        mPriceField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String priceWord = s.toString();
-                try
-                {
-                    mProduct.setPrice(Double.parseDouble(priceWord));
-                }
-                catch (NumberFormatException e){
-                    Log.e(TAG, e.getMessage(), e);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        if(mProduct.getPrice() != null){
+            mPriceField.setText(mProduct.getPrice().toString());
+        }
 
         mDescriptionField = v.findViewById(R.id.description_edit);
         mDescriptionField.setText(mProduct.getDescription());
-        mDescriptionField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        mSaveChangesButton = v.findViewById(R.id.save_button);
+        mSaveChangesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mTitleField.getText().toString().equals("") && !mDescriptionField.getText().toString().equals("")
+                && !mPriceField.getText().toString().equals("")){
+
+                    mProduct.setName(mTitleField.getText().toString());
+                    mProduct.setPrice(Double.parseDouble(mPriceField.getText().toString()));
+                    mProduct.setDescription(mDescriptionField.getText().toString());
+                    getActivity().finish();
+                }
+                else {
+                    Toast.makeText(getContext(), R.string.empty_fields_hint, Toast.LENGTH_SHORT).show();
+                }
             }
+        });
 
+        mCanselButton = v.findViewById(R.id.cancel_button);
+        mCanselButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mProduct.setDescription(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                getActivity().finish();
             }
         });
 
