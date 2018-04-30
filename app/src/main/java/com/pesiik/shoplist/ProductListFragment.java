@@ -22,8 +22,10 @@ import com.pesiik.shoplist.Model.ProductManager;
 import java.util.List;
 
 public class ProductListFragment extends Fragment {
+
     private RecyclerView mProductRecyclerView;
     private ProductAdapter mAdapter;
+    private TextView mEmptyListHint;
 
     private static final String DIALOG_EDIT_ITEM = "DialogItem";
 
@@ -33,6 +35,7 @@ public class ProductListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_list, container, false );
         mProductRecyclerView = (RecyclerView) view.findViewById(R.id.product_recycler_view);
         mProductRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mEmptyListHint = getActivity().findViewById(R.id.empty_list_hint);
 
         updateUI();
 
@@ -56,7 +59,19 @@ public class ProductListFragment extends Fragment {
             mProductRecyclerView.setAdapter(mAdapter);
         }
         else {
+            mAdapter.setProducts(products);
             mAdapter.notifyDataSetChanged();
+        }
+
+        int count = products.size();
+
+        if(count>0){
+            mEmptyListHint.setVisibility(View.GONE);
+            mProductRecyclerView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mEmptyListHint.setVisibility(View.VISIBLE);
+            mProductRecyclerView.setVisibility(View.GONE);
         }
     }
 
@@ -101,8 +116,9 @@ public class ProductListFragment extends Fragment {
                     .setNegativeButton(R.string.remove_item, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ProductManager.get(getContext()).removeProduct(mProduct.getId());
+                            ProductManager.get(getContext()).removeProduct(mProduct);
                             mAdapter.notifyItemRemoved(getAdapterPosition());
+                            updateUI();
                         }
                     })
                     .create().show();
@@ -134,6 +150,10 @@ public class ProductListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mProducts.size();
+        }
+
+        public void setProducts(List<Product> products){
+            mProducts = products;
         }
     }
 }

@@ -1,14 +1,9 @@
 package com.pesiik.shoplist;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +21,13 @@ public class ProductFragment extends Fragment {
     private static final String TAG = "ProductFragment";
     private static final String ARG_PRODUCT_ID = "product_id";
 
+
     private Product mProduct;
     private EditText mTitleField;
     private EditText mPriceField;
     private EditText mDescriptionField;
     private Button mSaveChangesButton;
-    private Button mCanselButton;
+    private Button mCancelButton;
 
 
     public static ProductFragment newInstance(UUID productId){
@@ -43,6 +39,10 @@ public class ProductFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +59,8 @@ public class ProductFragment extends Fragment {
             mProduct = new Product();
         }
     }
+
+
 
 
     @Nullable
@@ -88,6 +90,12 @@ public class ProductFragment extends Fragment {
                     mProduct.setName(mTitleField.getText().toString());
                     mProduct.setPrice(Double.parseDouble(mPriceField.getText().toString()));
                     mProduct.setDescription(mDescriptionField.getText().toString());
+                    if(!ProductManager.get(getContext()).getProducts().contains(mProduct)){
+                        ProductManager.get(getContext()).AddProduct(mProduct);
+                    }
+                    else {
+                        ProductManager.get(getContext()).updateProduct(mProduct);
+                    }
                     getActivity().finish();
                 }
                 else {
@@ -96,8 +104,8 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        mCanselButton = v.findViewById(R.id.cancel_button);
-        mCanselButton.setOnClickListener(new View.OnClickListener() {
+        mCancelButton = v.findViewById(R.id.cancel_button);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();

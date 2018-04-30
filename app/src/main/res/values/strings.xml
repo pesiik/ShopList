@@ -27,4 +27,5 @@
     <string name="remove_item">Удалить</string>
 
     <string name="empty_fields_hint">У вас есть не заполненные поля</string>
+    <string name="empty_list_hint">Лист продуктов пустой. Чтобы добавить новое описание продукта, нажмите \"+\"</string>
 </resources>

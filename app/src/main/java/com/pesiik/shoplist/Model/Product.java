@@ -33,11 +33,8 @@ public class Product implements Parcelable{
     }
 
     @JsonCreator
-    public Product(@JsonProperty("name") String name,
-                   @JsonProperty("price") Double price,
-                   @JsonProperty("description") String description,
-                   @JsonProperty("count") int count) {
-        this.id = UUID.randomUUID();
+    public Product(UUID id, String name,Double price, String description, int count) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
