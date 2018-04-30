@@ -109,7 +109,14 @@ public class Product implements Parcelable{
         return 0;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Product){
+            Product object = (Product)obj;
+            return this.id.equals(object.id);
+        }
+        return false;
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
